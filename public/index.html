@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aircall Live Dashboard</title>
+    <script>
+        async function loginAndRedirect() {
+            let response = await fetch("https://api.aircall.io/v1/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": "marcus@cruisehub.com",
+                    "password": "Cruisehub4life!"
+                })
+            });
+
+            if (response.ok) {
+                window.location.href = "https://dashboard.aircall.io/live_monitoring_plus/calls?fullscreen=1";
+            } else {
+                document.body.innerHTML = "<h1>Login Failed</h1>";
+            }
+        }
+
+        window.onload = loginAndRedirect;
+    </script>
+</head>
+<body>
+    <h1>Loading Aircall Dashboard...</h1>
+</body>
+</html>
