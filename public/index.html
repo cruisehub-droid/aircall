@@ -6,21 +6,26 @@
     <title>Aircall Live Dashboard</title>
     <script>
         async function loginAndRedirect() {
-            let response = await fetch("https://api.aircall.io/v1/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "email": "marcus@cruisehub.com",
-                    "password": "Cruisehub4life!"
-                })
-            });
+            try {
+                let response = await fetch("https://api.aircall.io/v1/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "email": "marcus@cruisehub.com",
+                        "password": "Cruisehub4life!"
+                    })
+                });
 
-            if (response.ok) {
-                window.location.href = "https://dashboard.aircall.io/live_monitoring_plus/calls?fullscreen=1";
-            } else {
-                document.body.innerHTML = "<h1>Login Failed</h1>";
+                if (response.ok) {
+                    window.location.href = "https://dashboard.aircall.io/live_monitoring_plus/calls?fullscreen=1";
+                } else {
+                    document.body.innerHTML = "<h1>Login Failed. Please check credentials.</h1>";
+                }
+            } catch (error) {
+                console.error("Error logging in:", error);
+                document.body.innerHTML = "<h1>Error connecting to Aircall.</h1>";
             }
         }
 
